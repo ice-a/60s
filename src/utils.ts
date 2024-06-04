@@ -1,6 +1,6 @@
 import { customAlphabet } from 'nanoid'
 
-const defaultTips = ''
+const defaultTips = '我们不年轻,但永远年轻'
 
 export const randomId = (size: number) => customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', size)
 
