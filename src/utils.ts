@@ -1,15 +1,31 @@
 import { customAlphabet } from 'nanoid'
+import axios from 'axios'
 
-const defaultTips = '所有数据均来自官方，确保稳定与实时，用户群: 595941841，开源地址: https://github.com/vikiboss/60s'
+let defaultTips = 'data is nothing'
+
+
+
 
 export const randomId = (size: number) => customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', size)
 
-export function wrapperBaseRes(obj: object, message = defaultTips, status = 200) {
+
+export async function wrapperBaseRes(obj: object, message?: string, status = 200) {
+  if (!message) {
+    // 如果没有传递 message，则等待 defaultTips 更新
+    await axios.get('https://v1.hitokoto.cn')
+      .then(({ data }) => {
+        defaultTips = data.hitokoto;
+      })
+      .catch((error) => {
+        console.error('Failed to fetch hitokoto:', error);
+      });
+    message = defaultTips;
+  }
   return {
     status,
     message,
     data: obj || {},
-  }
+  };
 }
 
 export function transferText(str: string, mode: 'u2a' | 'a2u') {
