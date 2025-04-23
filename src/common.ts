@@ -14,10 +14,9 @@ interface FormatOptions {
 type Primitive = boolean | number | string | null | undefined
 
 export class Common {
-  static buildJson(data: boolean | number | string | object | null, code = 200, message = COMMON_MSG) {
+  static buildJson(data: boolean | number | string | object | null, code = 200, _message = COMMON_MSG) {
     return {
       code,
-      message,
       data,
       __debug__: Common.getApiInfo(),
     }
@@ -149,12 +148,8 @@ export class Common {
     return {
       api_name: '60s-api',
       api_version: pkg.version,
-      api_docs: 'https://docs.60s-api.viki.moe',
-      author: config.author,
-      user_group: config.group,
-      github_repo: config.github,
       updated: pkg.updateTime,
-      updated_at: new Date(pkg.updateTime).getTime(),
+      updated_at: new Date(pkg.updateTime).getTime()
     }
   }
 }
